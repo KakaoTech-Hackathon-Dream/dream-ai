@@ -1,0 +1,55 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  AI-CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v2
+        with:
+          python-version: 3.12.4
+
+      - name: Configure AWS credentials
+        if: ${{ github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: 배포 Dir 생성
+        if: ${{ github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' }}
+        working-directory: ./
+        run: |
+          mkdir -p deploy-ai
+          echo "${{ secrets.ENV_PY }}" | base64 --decode >> ./deploy-ai/env
+          cp ./app/* ./deploy-ai
+          cp ./services/* ./deploy-ai
+          cp ./ai_server.py ./deploy-ai
+          cp ./docker-compose.yml ./deploy-ai
+          cp ./Dockerfile ./deploy-ai
+          cp ./requirements.txt ./deploy-ai
+
+      - name: S3 업로드 및 CD 요청
+        if: ${{ github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' }}
+        working-directory: ./
+        run: |
+          cp utils/*.sh deploy-ai
+          cp utils/appspec.yml deploy-ai
+          cd deploy-ai && zip -r deploy-ai *
+          aws s3 cp deploy-ai.zip s3://${{ secrets.AWS_BUCKET_NAME }}/deploy-ai.zip
+
+          aws deploy create-deployment \
+          --application-name ${{ secrets.AWS_CODEDEPLOY_APP_NAME }} \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name ${{ secrets.AWS_CODEDEPLOY_GROUP_NAME_AI }} \
+          --file-exists-behavior OVERWRITE \
+          --s3-location bucket=${{ secrets.AWS_BUCKET_NAME }},bundleType=zip,key=deploy-ai.zip

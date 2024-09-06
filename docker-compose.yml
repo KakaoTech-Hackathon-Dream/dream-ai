@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  ai:
+    build: .
+    container_name: ai
+    restart: on-failure
+    env_file:
+      - .env
+    networks:
+      - dream
+      - datasource
+    ports:
+      - "8000:8000"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    networks:
+      - datasource
+    expose:
+      - "9200"
+      - "9300"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+networks:
+  dream:
+    external: true
+  datasource:
+    external: true

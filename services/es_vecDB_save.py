@@ -2,7 +2,7 @@ from elasticsearch import Elasticsearch
 from sentence_transformers import SentenceTransformer
 
 # Elasticsearch 연결 설정
-es = Elasticsearch([{'host': 'localhost', 'port': 9200, 'scheme': 'http'}])
+es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200, 'scheme': 'http'}])
 
 # 사전 학습된 Sentence-BERT 모델 로드
 model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')

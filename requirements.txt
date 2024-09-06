@@ -1,0 +1,9 @@
+fastapi
+pydantic
+uvicorn
+elasticsearch
+sentence-transformers
+langchain_community
+langchain-openai
+langchain-core
+openai

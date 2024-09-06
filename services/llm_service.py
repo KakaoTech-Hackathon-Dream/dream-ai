@@ -8,7 +8,7 @@ load_dotenv()
 
 # OpenAI API 설정
 openai_api_key = os.getenv("OPENAI_API_KEY")
-llm = ChatOpenAI(api_key=openai_api_key, model="gpt-3.5-turbo")
+llm = ChatOpenAI(api_key=openai_api_key, model="gpt-4o")
 
 # 1. 초기 단계 프롬프트 템플릿 (기)
 initial_template = PromptTemplate.from_template("""

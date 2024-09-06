@@ -5,6 +5,7 @@ from services.llm_service import interactive_story_generation
 from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 import os
+import openai
 
 load_dotenv()
 
@@ -14,6 +15,7 @@ app = FastAPI()
 # Elasticsearch 연결 설정
 es = Elasticsearch(hosts=["http://elasticsearch:9200"])
 
+openai_api_key = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key = openai_api_key)
 
 # Pydantic을 사용해 요청 모델 정의
@@ -64,7 +66,7 @@ async def generate_story_endpoint(request: StoryRequest):
         # 에러 발생 시 HTTP 500 예외 처리
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.post("/generate-image/")
+@app.post("/api/image")
 async def generate_image(request: ImageRequest):
     try:
         age = 66

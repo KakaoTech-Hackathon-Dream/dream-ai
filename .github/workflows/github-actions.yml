@@ -35,6 +35,7 @@ jobs:
           
           echo "${{ secrets.ENV_PY }}" | base64 --decode >> ./deploy-ai/env
           cp ./app/es_vecDB_search.py ./deploy-ai/app
+          cp ./app/es_indexMapping.py ./deploy-ai/app
           cp ./services/es_vecDB_save.py ./deploy-ai/services
           cp ./services/llm_service.py ./deploy-ai/services
           cp ./ai_server.py ./deploy-ai

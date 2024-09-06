@@ -1,10 +1,10 @@
 fastapi
-pydantic
 uvicorn
+pydantic
+dotenv
 elasticsearch
 sentence-transformers
-langchain_community
-langchain-openai
-langchain-core
 openai
-dotenv
+langchain-core
+langchain-openai
+langchain_community

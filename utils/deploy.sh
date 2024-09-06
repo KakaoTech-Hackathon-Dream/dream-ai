@@ -2,20 +2,20 @@
 
 runNetwork(){
   # 네트워크가 존재하는지 확인
-  if [ -z "$(docker network ls | grep harpsharp)" ]
+  if [ -z "$(docker network ls | grep dream)" ]
   then
-      echo "harpsharp 네트워크를 생성합니다."
+      echo "dream 네트워크를 생성합니다."
       docker network create dream
   else
-      echo "harpsharp 네트워크가 이미 존재합니다."
+      echo "dream 네트워크가 이미 존재합니다."
   fi
 
   if [ -z "$(docker network ls | grep datasource)" ]
     then
-        echo "harpsharp 네트워크를 생성합니다."
+        echo "datasource 네트워크를 생성합니다."
         docker network create datasource
     else
-        echo "harpsharp 네트워크가 이미 존재합니다."
+        echo "datasource 네트워크가 이미 존재합니다."
     fi
 }
 

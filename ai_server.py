@@ -66,7 +66,7 @@ async def generate_story_endpoint(request: StoryRequest):
         # 에러 발생 시 HTTP 500 예외 처리
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.post("/generate-image/")
+@app.post("/api/image")
 async def generate_image(request: ImageRequest):
     try:
         age = 66

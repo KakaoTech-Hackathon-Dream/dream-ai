@@ -8,7 +8,7 @@ from elasticsearch import Elasticsearch
 app = FastAPI()
 
 # Elasticsearch 연결 설정
-es = Elasticsearch(hosts=["http://localhost:9200"])
+es = Elasticsearch(hosts=["http://elasticsearch:9200"])
 
 # Pydantic을 사용해 요청 모델 정의
 class StoryRequest(BaseModel):

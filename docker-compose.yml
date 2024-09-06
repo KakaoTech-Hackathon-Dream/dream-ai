@@ -27,6 +27,10 @@ services:
     volumes:
       - esdata:/usr/share/elasticsearch/data
 
+volumes:
+  esdata:
+    driver: local
+
 networks:
   dream:
     external: true

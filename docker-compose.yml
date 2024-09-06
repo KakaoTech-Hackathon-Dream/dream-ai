@@ -6,7 +6,8 @@ services:
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false  # 보안 비활성화
+      - xpack.security.http.ssl.enabled=false  # HTTPS 비활성화
     networks:
       - datasource
     expose:

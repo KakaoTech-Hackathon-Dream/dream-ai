@@ -5,6 +5,7 @@ from services.llm_service import interactive_story_generation
 from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 import os
+import openai
 
 load_dotenv()
 
@@ -14,6 +15,7 @@ app = FastAPI()
 # Elasticsearch 연결 설정
 es = Elasticsearch(hosts=["http://elasticsearch:9200"])
 
+openai_api_key = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key = openai_api_key)
 
 # Pydantic을 사용해 요청 모델 정의

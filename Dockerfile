@@ -6,6 +6,7 @@ COPY . .
 
 # 필요 패키지 설치
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install python-dotenv
+RUN pip install --use-pep517 --no-cache-dir -r requirements.txt
 
 ENTRYPOINT ["uvicorn", "ai_server.py:app", "--host", "0.0.0.0", "--port", "8000"]

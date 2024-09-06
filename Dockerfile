@@ -8,4 +8,4 @@ COPY . .
 RUN pip install python-dotenv
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python3", "ai_server.py"]
+ENTRYPOINT ["uvicorn", "ai_server.py:app", "--host", "0.0.0.0", "--port", "8000"]

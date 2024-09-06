@@ -31,6 +31,7 @@ jobs:
         run: |
           mkdir -p deploy-ai/app
           mkdir -p deploy-ai/services
+          mkdir -p deploy-ai/esdata
           
           echo "${{ secrets.ENV_PY }}" | base64 --decode >> ./deploy-ai/env
           cp ./app/es_vecDB_search.py ./deploy-ai/app

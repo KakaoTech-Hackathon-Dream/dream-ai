@@ -1,5 +1,6 @@
 # 드림, 당신의 그리운 꿈을 드립니다.
-<img src = https://github.com/user-attachments/assets/5697f68c-25ab-43a8-a5d9-7e8b826c4d8e height=25% width=25%/>
+<img width="1112" alt="image" src="https://github.com/user-attachments/assets/187ad483-838e-4000-a97c-9204866cd829">
+
 
 ## 프로젝트 설명
 생성형 AI(LLM, RAG, Diffusion model)를 활용하여 <br>
